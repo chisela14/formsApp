@@ -1,0 +1,37 @@
+<h3>Forms</h3>
+    <hr class="text-white"/>
+<div>
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item"> 
+            <span class="nav-link active">Template</span>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/template/basics']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Basics</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/template/dynamics']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Dynamics</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/template/directives']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Directives</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/template/switches']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Switches</a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <span class="nav-link active">Reactive</span>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Basics</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Dynamics</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Switches</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
