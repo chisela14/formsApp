@@ -5,6 +5,7 @@ import { DynamicsComponent } from './dynamics/dynamics.component';
 import { DirectivesComponent } from './directives/directives.component';
 import { SwitchesComponent } from './switches/switches.component';
 import { TemplateRoutingModule } from './template-routing.module';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -17,7 +18,8 @@ import { TemplateRoutingModule } from './template-routing.module';
   ],
   imports: [
     CommonModule,
-    TemplateRoutingModule
+    TemplateRoutingModule,
+    FormsModule
   ],
   exports: [
     BasicsComponent,

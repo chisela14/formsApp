@@ -1,1 +1,86 @@
-<p>basics works!</p>
+<h2>Template: Básicos</h2>
+<hr>
+
+<div class="row">
+    <div class="col">
+        <form (ngSubmit)="save()" #myForm="ngForm" autocomplete="off">
+            <!-- Campo de producto -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Producto</label>
+                <div class="col-sm-9">
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Nombre del producto"
+                           [ngModel]="initForm.product"
+                           name="product"
+                           minlength="3"
+                           required>
+                    <!--*ngIf="myForm.controls['producto']?.invalid && this.myForm.controls['producto']?.touched"-->
+                    <span class="form-text text-danger" *ngIf="notValidName()"><!--? intenta acceder a la propiedad si está definida, sino pasa-->
+                        Debe de ser de 3 letras
+                    </span>
+                </div>
+            </div>
+
+            <!-- Campo de producto -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Precio</label>
+                <div class="col-sm-9">
+                    <input type="number"
+                           class="form-control"
+                           placeholder="Precio del producto"
+                           ngModel
+                           name="price"
+                           min="0.1"
+                           required>
+                    
+                        <span class="form-text text-danger" *ngIf="notValidPrice()">
+                            Debe de ser un número mayor que cero
+                        </span>
+                </div>
+            </div>
+
+            <!-- Campo de existencias -->
+            <div class="mb-3 row">
+                <label class="col-sm-3 col-form-label">Existencias</label>
+                <div class="col-sm-9">
+                    <input type="number"
+                           class="form-control"
+                           placeholder="Existencias del producto"
+                           ngModel
+                           name="stock"
+                           min="0">
+                        
+                    <span class="form-text text-danger" *ngIf="notValid('stock')">
+                        Debe ser un número mayor o igual que cero
+
+                    </span>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <button type="submit"
+                            class="btn btn-primary float-end" 
+                            [disabled]="myForm.invalid"><!--propiedad entre corchetes se mostrará o no según la condición de detrás-->
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<span>Valid</span>
+<pre>{{myForm.valid}}</pre><!--muestra tal cual, no lo interpreta-->
+
+<span>Pristine</span>
+<pre>{{myForm.pristine}}</pre><!--no se ha modificado en absoluto (inmaculado)-->
+
+<span>Touched</span>
+<pre>{{myForm.touched}}</pre><!--el usuario ha tocado el formulario aunque no haya introducido datos-->
+
+<span>Value</span>
+<pre>{{myForm.value | json}}</pre>

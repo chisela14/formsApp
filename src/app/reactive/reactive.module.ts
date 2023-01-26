@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BasicsComponent } from './basics/basics.component';
 import { DynamicsComponent } from './dynamics/dynamics.component';
 import { SwitchesComponent } from './switches/switches.component';
+import { ReactiveRoutingModule } from './reactive-routing.module';
 
 
 
@@ -13,7 +14,8 @@ import { SwitchesComponent } from './switches/switches.component';
     SwitchesComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveRoutingModule
   ],
   exports: [
     BasicsComponent,
