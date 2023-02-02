@@ -1,7 +1,7 @@
 <h2>Template: <small> Dinámicos </small></h2>
 <hr>
 
-<form (ngSubmit)="save()" autocomplete="off" [formGroup]="myForm">
+<form autocomplete="off" [formGroup]="myForm"><!--quito ngSubmit porque choca con el click-->
    
     <!-- Nombre -->
     <div class="mb-3 row">
@@ -22,7 +22,9 @@
         <div class="col-sm-9">
             <div class="input-group">
                 <input class="form-control"
-                       placeholder="Agregar favorito">
+                       placeholder="Agregar favorito"
+                       [formControl]="newFavourite"
+                       (keydown.enter)="add()"><!--para hacer el método add al pulsar enter-->
 
                 <button class="btn btn-outline-primary" type="button" (click)="add()">Agregar</button>
             </div>
@@ -30,28 +32,26 @@
     </div>
 
     <!-- Lista de favoritos -->
-    <div class="mb-3 row" formArrayName="favourites">
+    <div class="mb-3 row" formArrayName="favourites"><!--favourites necesita conseguirse del formulario con un get en el componente-->
         <div class="input-group mb-1" 
-        *ngFor="let favorito of myForm.controls['favourites'].value; let i = index">
-            <input class="form-control" [formControlName]="favorito">
+        *ngFor="let favorito of favourites.controls; let i = index">
+            <input class="form-control" [formControlName]="i">
 
-            <button class="btn btn-outline-danger" type="button"> Eliminar </button>
+            <button class="btn btn-outline-danger" type="button" (click)="delete(i)"> Eliminar </button>
         </div>
 
     </div>
 
     <div class="row">
         <div class="col-sm-12">
-            <button class="btn btn-primary float-end">
+            <button class="btn btn-primary float-end"
+                    type="button" (click)="save()">
                 Guardar
             </button>
         </div>
     </div>
 
 </form>
-
-<span> Persona</span>
-<pre>{{persona|json}}</pre>
 
 <span>Valid</span>
 <pre>{{myForm.valid}}</pre>

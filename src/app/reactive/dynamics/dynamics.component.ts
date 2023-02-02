@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 interface Persona {
   nombre: string;
@@ -17,17 +18,22 @@ interface Favorito {
 })
 export class DynamicsComponent implements OnInit {
 
-  persona : Persona = { nombre: 'Manuel', favoritos: [{id: 1, nombre: 'Star Wars'}, {id: 2, nombre: 'Marvel'}]}
-
   constructor(private fb:FormBuilder) { }
 
   myForm:FormGroup = this.fb.group({
-    name: ['', Validators.required, Validators.minLength(3)],
+    name: ['', [Validators.required, Validators.minLength(3)]],
     favourites: this.fb.array([
       ['Suzuki', Validators.required],
-      ['Yamaha']
+      ['Yamaha', Validators.required]
     ], Validators.required)//array de controles
   })
+
+  newFavourite: FormControl = this.fb.control('', Validators.required)
+
+  get favourites(){
+    return this.myForm.get('favourites') as FormArray;
+  }
+
   ngOnInit(): void {
   }
 
@@ -38,25 +44,24 @@ export class DynamicsComponent implements OnInit {
   save(){
     if(this.myForm.invalid){
       this.myForm.markAllAsTouched()
-      return
+      return;
     }
+    this.favourites.clear();//para eliminar los elementos en vez de dejarlos a null
     this.myForm.reset();
   }
 
-  delete(index: number){
-    this.persona.favoritos.splice(index, 1);
-  }
-  
-  
-  add(){
-    let favouriteName:string = this.myForm.controls['favourite'].value;
-    console.log(favouriteName)
-    let newFavorito:Favorito={id: this.persona.favoritos.length +1, nombre: favouriteName};
-    if(favouriteName.trim()){
-      this.persona.favoritos.push({...newFavorito});//mejor pasar una copia
+  add(){ 
+    if(this.newFavourite.valid){
+                    //push de FormArray
+      this.favourites.push(this.fb.control(this.newFavourite.value, Validators.required))//así se envía una copia
+    }else{
+      Swal.fire('Error', 'El elemento a agregar no puede quedar vacío')
     }
-    
+    this.newFavourite.reset();
   }
 
+  delete(index: number){
+    this.favourites.removeAt(index);
+  }
 
 }
